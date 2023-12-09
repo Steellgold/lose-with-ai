@@ -1,5 +1,6 @@
 {
   "name": "lose-with-ai",
+  "description": "Supabase Launch Week X Hackaton",
   "version": "0.1.0",
   "private": true,
   "scripts": {
