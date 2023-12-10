@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import type { Component } from "@/lib/utils/component";
 import type { PropsWithChildren } from "react";
 import { Providers } from "./providers";
+import { SuperMegaCooooolNavbar } from "@/lib/utils/navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const n = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Lose with AI",
-  description: "Project for Supabase Hackathon 2023 on Launch Week X"
+  description: "Project for Supabase Hackathon 2023 on Launch Week X",
+  applicationName: "Lose with AI - Supabase Hackathon 2023",
+  keywords: ["supabase", "hackathon", "2023", "lose", "weight", "ai"]
 };
 
-export const Layout: Component<PropsWithChildren> = ({ children }) => {
+const Layout: Component<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={n.className}>
         <Providers>
-          {children}
+          <SuperMegaCooooolNavbar />
+          <main className="max-w-5xl mx-auto px-6 m-6">{children}</main>
         </Providers>
       </body>
     </html>
