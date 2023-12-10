@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes rotationAnimation {
+  50% {
+    transform: rotate(15deg);
+  }
+  80% {
+    transform: rotate(-10deg);
+  }
+}
+
+.animate-rotateAnim {
+  animation: rotationAnimation 2s linear infinite;
+}
