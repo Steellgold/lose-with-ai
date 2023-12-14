@@ -1,14 +1,21 @@
 "use client";
 
 import { env } from "@/lib/env.mjs";
+import { useUser } from "@/lib/providers";
 import { createClient } from "@/lib/utils/supabase/client";
 import { Button, Card, CardBody, Input, cn } from "@nextui-org/react";
 import { MailIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export const Page = () => {
   const supabase = createClient();
+  const { user } = useUser();
+  const router = useRouter();
+
+  if (user) router.push("/app");
+
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
