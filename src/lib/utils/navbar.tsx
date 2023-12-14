@@ -57,11 +57,13 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <Button as={Link} color="secondary" href="/auth" variant="flat">
-            Get started
-          </Button>
-        </NavbarItem>
+         {!user && (
+            <NavbarItem>
+              <Button as={Link} color="secondary" href="/auth" variant="flat">
+                Get started
+              </Button>
+            </NavbarItem>
+          )}
 
         {user && (
           <Dropdown placement="bottom-end">
