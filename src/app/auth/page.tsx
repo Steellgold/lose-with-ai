@@ -45,7 +45,7 @@ export const Page = () => {
               }
 
               
-              supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: env.NEXT_PUBLIC_APP_URL } })
+              supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: env.NEXT_PUBLIC_APP_URL + "/auth/callback" } })
                 .then(() => {
                   toast("Magic link sent to your email!", { icon: <MailIcon size={18} /> });
                   setLoading(false);

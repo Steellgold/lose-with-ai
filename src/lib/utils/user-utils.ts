@@ -17,3 +17,11 @@ export const getAvatarUrl = (user: User | null): string => {
   if (user.user_metadata.avatar_url) return user.user_metadata.avatar_url;
   return "_static/images/avatar.png";
 };
+
+export const getAMail = (user: User | null): string => {
+  if (!user) return "Anonymous";
+
+  if (user.user_metadata.email) return user.user_metadata.email;
+  if (user.email) return user.email;
+  return "Anonymous";
+};
