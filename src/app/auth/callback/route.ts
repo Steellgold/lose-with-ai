@@ -10,8 +10,7 @@ export const GET = async(request: NextRequest): Promise<NextResponse> => {
   const code = requestUrl.searchParams.get("code");
 
   if (code) {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createClient(cookies());
     await supabase.auth.exchangeCodeForSession(code);
 
     const u = await supabase.auth.getUser();
@@ -20,6 +19,7 @@ export const GET = async(request: NextRequest): Promise<NextResponse> => {
     if (!user) {
       await prisma.user.create({
         data: {
+          id: u.data.user?.id,
           email: getAMail(u.data.user),
           credit: 2,
           name: getAName(u.data.user)
