@@ -4,7 +4,7 @@ import { GenerationsPage } from "./page.client";
 import { auth } from "@/lib/utils/auth";
 import { getProgramsQuery } from "@/lib/actions/progs";
 
-const App = async(): Promise<ReactElement> => {
+const Home = async(): Promise<ReactElement> => {
   const userData = await auth();
   if (!userData) return <>You are not logged in!</>;
 
@@ -15,4 +15,4 @@ const App = async(): Promise<ReactElement> => {
   );
 };
 
-export default App;
+export default Home;
