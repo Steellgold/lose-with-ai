@@ -5,6 +5,7 @@ import type { Component } from "@/lib/utils/component";
 import type { PropsWithChildren } from "react";
 import { Providers } from "./providers";
 import { SuperMegaCooooolNavbar } from "@/lib/utils/navbar";
+import { cn } from "@nextui-org/react";
 
 const n = Nunito({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 const Layout: Component<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={n.className}>
+      <body className={cn("overflow-x-hidden", n.className)}>
         <Providers>
           <SuperMegaCooooolNavbar />
           <main className="max-w-5xl mx-auto px-6 m-6">{children}</main>
