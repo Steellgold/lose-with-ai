@@ -5,22 +5,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider = "zod-prisma-types"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id          String       @id @default(uuid())
-  email       String       @unique
-  name        String       @default("")
-  credit      Int          @default(0)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  generations Generation[]
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String    @default("")
+  credit    Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  programs  Program[]
 }
 
-model Generation {
+model Program {
   id        String   @id @default(uuid())
   prompt    String
   createdAt DateTime @default(now())
