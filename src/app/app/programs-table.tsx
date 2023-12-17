@@ -61,7 +61,7 @@ export const ProgramsTable: Component<{ programs: Data }> = ({ programs }) => {
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => <TableCell>
-              <Link href={`/app/programs/${item.id}`} key={item.id}>{renderCell(item, columnKey)}</Link>
+              <Link href={`/app/program/${item.id}`} key={item.id}>{renderCell(item, columnKey)}</Link>
             </TableCell>}
           </TableRow>
         )}
