@@ -12,8 +12,6 @@ type Props = {
 };
 
 export const ProgramPage = ({ program }: Props): ReactElement => {
-  if (!program.data) return <>This program does not exist!</>;
-
   return (
     <>
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-12">
