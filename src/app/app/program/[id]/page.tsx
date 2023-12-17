@@ -35,11 +35,6 @@ const ProgramPage = ({ params }: Props): ReactElement => {
       </div>
 
       <div className="mx-auto max-w-[600px]">
-        <pre>
-          {/* parse the program.data.data json */}
-          {/* {JSON.stringify(JSON.parse(program.data?.data ?? "{}"), null, 2)} */}
-        </pre>
-
         <div className="flex flex-col gap-2">
           {JSON.parse(program.data?.data?.toString() ?? "{}").map((p: { title: string; description: string; duration: number }) => (
             <Card key={p.title} className="py-4">
