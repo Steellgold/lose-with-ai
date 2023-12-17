@@ -12,7 +12,7 @@ import { createClient } from "./supabase/client";
 import { useUser } from "../providers";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Coins, Dumbbell, LogOut, Rows, User } from "lucide-react";
+import { Coins, Dumbbell, LogOut, User } from "lucide-react";
 import { CreditsModal } from "./modals/credits.modal";
 
 
@@ -29,10 +29,10 @@ const random = (): ReactElement => {
 export const SuperMegaCooooolNavbar = (): ReactElement => {
   const supabase = createClient();
 
-  const {isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const { user } = useUser();
@@ -57,13 +57,13 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end">
-         {!user && (
-            <NavbarItem>
-              <Button as={Link} color="secondary" href="/auth" variant="flat">
+        {!user && (
+          <NavbarItem>
+            <Button as={Link} color="secondary" href="/auth" variant="flat">
                 Get started
-              </Button>
-            </NavbarItem>
-          )}
+            </Button>
+          </NavbarItem>
+        )}
 
         {user && (
           <Dropdown placement="bottom-end">
@@ -78,7 +78,7 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
                 icon={<User size={24} strokeWidth={1} color="black" />}
               />
             </DropdownTrigger>
-            
+
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2" as={Link} href="/app">
                 <p className="font-semibold">Signed in as</p>
@@ -93,8 +93,8 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
                     router.push("/");
                     toast("Logged out successfully!", { icon: <IconPlayFootball size={18} /> });
                   })
-                  .catch((error) => toast("Error logging out!", { icon: <IconPlayFootball size={18} />, description: error.message }));
-                }} endContent={<LogOut size={12} />}>
+                  .catch((error) => toast("Error logging out!", { icon: <IconPlayFootball size={18} />, description: error.message ?? "Error" }));
+              }} endContent={<LogOut size={12} />}>
                 Log Out
               </DropdownItem>
             </DropdownMenu>

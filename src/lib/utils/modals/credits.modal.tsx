@@ -1,18 +1,19 @@
 import React from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, DropdownItem, Card, CardHeader, Divider, Input, Badge, cn } from "@nextui-org/react";
-import { Component } from "../component";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Card, cn } from "@nextui-org/react";
+import type { Component } from "../component";
 import { ArrowRight } from "lucide-react";
+// eslint-disable-next-line camelcase
 import { Josefin_Sans } from "next/font/google";
 
 type Props = {
-  isOpen: boolean
-  onOpenChange: () => void
-  onOpen: () => void
+  isOpen: boolean;
+  onOpenChange: () => void;
+  onOpen: () => void;
 }
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
-export const CreditsModal: Component<Props> = ({ isOpen, onOpenChange, onOpen }) => {
+export const CreditsModal: Component<Props> = ({ isOpen, onOpenChange }) => {
   return (
     <Modal backdrop={"blur"} isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
@@ -35,10 +36,11 @@ export const CreditsModal: Component<Props> = ({ isOpen, onOpenChange, onOpen })
             </ModalBody>
 
             <ModalFooter>
+              <Button color="secondary" onClick={onClose}>Close</Button>
             </ModalFooter>
           </>
         )}
       </ModalContent>
     </Modal>
   );
-}
+};

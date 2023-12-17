@@ -13,7 +13,7 @@ export const getProg = async(progId: string): Promise<Program | null> => {
 export const getProgs = async(userId: string): Promise<Program[]> => {
   const id = z.string().parse(userId);
   return prisma.program.findMany({ where: { userId: id } });
-}
+};
 
 export const createProg = async(program: Prisma.ProgramCreateInput): Promise<Program> => {
   const data = ProgramCreateInputSchema.parse(program);

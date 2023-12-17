@@ -45,10 +45,10 @@ dependencies:
     specifier: 14.0.4
     version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
   react:
-    specifier: ^18.2.0
+    specifier: ^18
     version: 18.2.0
   react-dom:
-    specifier: ^18.2.0
+    specifier: ^18
     version: 18.2.0(react@18.2.0)
   react-hook-form:
     specifier: ^7.49.2
@@ -71,40 +71,40 @@ dependencies:
 
 devDependencies:
   '@bluzzi/eslint-config':
-    specifier: 1.2.1
+    specifier: ^1.2.0
     version: 1.2.1(eslint@8.56.0)(typescript@5.3.3)
   '@types/howler':
     specifier: ^2.2.11
     version: 2.2.11
   '@types/node':
-    specifier: ^20.10.4
+    specifier: ^20
     version: 20.10.4
   '@types/react':
-    specifier: ^18.2.45
+    specifier: ^18
     version: 18.2.45
   '@types/react-dom':
-    specifier: ^18.2.18
+    specifier: ^18
     version: 18.2.18
   autoprefixer:
-    specifier: ^10.4.16
+    specifier: ^10.0.1
     version: 10.4.16(postcss@8.4.32)
   eslint:
-    specifier: ^8.56.0
+    specifier: ^8
     version: 8.56.0
   eslint-config-next:
     specifier: 14.0.4
     version: 14.0.4(eslint@8.56.0)(typescript@5.3.3)
   postcss:
-    specifier: ^8.4.32
+    specifier: ^8
     version: 8.4.32
   prisma:
     specifier: ^5.7.0
     version: 5.7.0
   tailwindcss:
-    specifier: ^3.3.6
+    specifier: ^3.3.0
     version: 3.3.6
   typescript:
-    specifier: ^5.3.3
+    specifier: ^5
     version: 5.3.3
 
 packages:

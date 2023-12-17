@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import { Bot, Sparkles } from "lucide-react";
-import { Button, Card, CardHeader, Input, Link, cn } from "@nextui-org/react";
+import { Button, Input, Link, cn } from "@nextui-org/react";
 
 const HeroSection = (): ReactElement => {
   return <>

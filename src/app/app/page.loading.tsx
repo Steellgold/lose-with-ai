@@ -1,5 +1,5 @@
-import { Card, Skeleton } from "@nextui-org/react"
-import { ReactElement } from "react"
+import { Card, Skeleton } from "@nextui-org/react";
+import type { ReactElement } from "react";
 
 export const PageLoadingLayout = (): ReactElement => {
   return (
@@ -24,13 +24,13 @@ export const PageLoadingLayout = (): ReactElement => {
             <div className="h-24 rounded-lg bg-default-300" />
           </Skeleton>
         </Card>
-        
+
         <Card className="w-60">
           <Skeleton className="rounded-lg">
             <div className="h-24 rounded-lg bg-default-300" />
           </Skeleton>
         </Card>
-        
+
         <Card className="w-60">
           <Skeleton className="rounded-lg">
             <div className="h-24 rounded-lg bg-default-300" />
@@ -38,5 +38,5 @@ export const PageLoadingLayout = (): ReactElement => {
         </Card>
       </div>
     </div>
-  )
-}
+  );
+};
