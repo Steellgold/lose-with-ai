@@ -6,10 +6,11 @@ import { createClient } from "@/lib/utils/supabase/client";
 import { Button, Card, CardBody, Input, cn } from "@nextui-org/react";
 import { MailIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { ReactElement } from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const AuthPage = () => {
+const AuthPage = (): ReactElement => {
   const supabase = createClient();
   const { user } = useUser();
   const router = useRouter();
@@ -19,6 +20,7 @@ const AuthPage = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // eslint-disable-next-line max-len
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const [error, setError] = useState<Error | null>(null);
@@ -32,44 +34,44 @@ const AuthPage = () => {
             <p className="text-center text-small">Just enter your email and we{"'"}ll help you get started.</p>
           </div>
 
-            <form className="flex flex-col gap-2 w-full" onSubmit={(e) => {
-              setLoading(true);
-              e.preventDefault();
+          <form className="flex flex-col gap-2 w-full" onSubmit={(e) => {
+            setLoading(true);
+            e.preventDefault();
 
-              if (email) {
+            if (email) {
+              setLoading(false);
+              if (!emailRegex.test(email)) return setError(new Error("Invalid email!"));
+            } else {
+              setLoading(false);
+              return setError(new Error("Email is required!"));
+            }
+
+
+            supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: env.NEXT_PUBLIC_APP_URL + "/auth/callback" } })
+              .then(() => {
+                toast("Magic link sent to your email!", { icon: <MailIcon size={18} /> });
                 setLoading(false);
-                if (!emailRegex.test(email)) return setError(new Error("Invalid email!"));
-              } else {
+                setError(null);
+              })
+              .catch((error) => {
+                toast("Error sending magic link!", { icon: <MailIcon size={18} />, description: error.message });
                 setLoading(false);
-                return setError(new Error("Email is required!"));
-              }
+                setError(error as Error);
+              });
+          }}>
+            <div className="flex flex-col gap-2">
+              <Input size="sm" placeholder="Enter your email" type="email" isDisabled={loading}
+                onChange={(e) => setEmail(e.target.value)} value={email}
+                errorMessage={error?.message}
+                isInvalid={!!error}
+                color={error ? "danger" : "default"}
+              />
 
-              
-              supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: env.NEXT_PUBLIC_APP_URL + "/auth/callback" } })
-                .then(() => {
-                  toast("Magic link sent to your email!", { icon: <MailIcon size={18} /> });
-                  setLoading(false);
-                  setError(null);
-                })
-                .catch((error) => {
-                  toast("Error sending magic link!", { icon: <MailIcon size={18} />, description: error.message, });
-                  setLoading(false);
-                  setError(error);
-                });
-            }}>
-              <div className="flex flex-col gap-2">
-                <Input size="sm" placeholder="Enter your email" type="email" isDisabled={loading}
-                  onChange={(e) => setEmail(e.target.value)} value={email}
-                  errorMessage={error?.message}
-                  isInvalid={!!error}
-                  color={error ? "danger" : "default"}
-                />
-
-                <Button color="secondary" isLoading={loading} type="submit" onSubmit={() => setLoading(true)}>
+              <Button color="secondary" isLoading={loading} type="submit" onSubmit={() => setLoading(true)}>
                   Send magic link
-                </Button>
-              </div>
-            </form>
+              </Button>
+            </div>
+          </form>
         </CardBody>
       </Card>
     </div>

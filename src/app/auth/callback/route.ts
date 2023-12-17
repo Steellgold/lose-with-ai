@@ -23,7 +23,7 @@ export const GET = async(request: NextRequest): Promise<NextResponse> => {
           email: getAMail(u.data.user),
           credit: 2,
           name: getAName(u.data.user)
-        },
+        }
       });
     }
   }

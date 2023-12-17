@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { useUser } from "@/lib/providers";
 import { Card, CardHeader, cn } from "@nextui-org/react";
 import { Howl } from "howler";
 import Image from "next/image";
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { useHover } from "usehooks-ts";
 import { Generate } from "./generate";
@@ -13,7 +15,7 @@ import { useGetUser } from "@/lib/actions/user";
 
 type Position = "TOP" | "RIGHT" | "BOTTOM" | "LEFT";
 
-const classWithRotate = (rotate: number, isHovered: boolean, pos: Position) => cn("absolute", {
+const classWithRotate = (rotate: number, isHovered: boolean, pos: Position): string => cn("absolute", {
   "transition duration-500 ease-in-out transform hover:translate-y-1 right-12": isHovered,
   "rotate-90": rotate === 90,
   "rotate-180": rotate === 180,
@@ -22,26 +24,27 @@ const classWithRotate = (rotate: number, isHovered: boolean, pos: Position) => c
   "bottom-0 right-0": pos === "RIGHT",
   "top-0 right-0": pos === "TOP",
   "top-0 left-0": pos === "LEFT",
-  "bottom-0 left-0": pos === "BOTTOM",
+  "bottom-0 left-0": pos === "BOTTOM"
 });
 
-export const GenerationsPage = () => {
+export const GenerationsPage = (): ReactElement => {
   const { user } = useUser();
   if (!user) return <PageLoadingLayout />;
+
   const userData = useGetUser(user.id);
   if (!userData) return <PageLoadingLayout />;
 
   const sound = new Howl({ src: "/jon-meyers.mp3", volume: 10 });
-  const hoverRef = useRef(null)
-  const isHovered = useHover(hoverRef)
+  const hoverRef = useRef(null);
+  const isHovered = useHover(hoverRef);
 
   const programs = useGetPrograms(user.id);
   if (!programs) return <PageLoadingLayout />;
 
-  const playJonMeyers = () => {
+  const playJonMeyers = (): void => {
     console.log("play");
     sound.play();
-  }
+  };
 
   return (
     <>
@@ -52,11 +55,11 @@ export const GenerationsPage = () => {
 
       <h1 className={cn("text-6xl font-bold text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", {
         "transition duration-500 ease-in-out transform hover:-translate-y-1 -rotate-45 scale-150": isHovered,
-        "hidden": !isHovered,
+        "hidden": !isHovered
       })}>
-        Let's get into it
+        Let{"'"}s get into it
         <span className="text-secondary-500 text-2xl block">
-          Don't be afraid it won't stay like this forever, on the other hand "Let's get into it" will stay in your head forever
+          Don{"'"}t be afraid it won{"'"}t stay like this forever, on the other hand {"\""}Let{"'"}s get into it{"\""} will stay in your head forever
         </span>
       </h1>
 

@@ -6,12 +6,12 @@ import { Textarea, Switch, cn,
 import dayjs from "dayjs";
 import { Sparkles } from "lucide-react";
 import type { ReactElement } from "react";
-import { cloneElement, useState } from "react";
+import { cloneElement } from "react";
 
 export const Generate = (): ReactElement => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [isReady, setIsReady] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
+  // const [isReady, setIsReady] = useState(false);
+  // const [isGenerating, setIsGenerating] = useState(false);
 
   return <>
     <Button size="sm" onPress={onOpen}>
@@ -37,7 +37,7 @@ export const Generate = (): ReactElement => {
                 renderValue={(items: SelectedItems<Sport>) => {
                   if (!items.length) return <>Nothing phone</>;
                   return items.map((item) => (
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center" key={item.key}>
                       <div className="flex items-center justify-center w-7 h-7 text-white bg-secondary-800 rounded-full p-1.5">
                         {item.data?.icon && cloneElement(item.data?.icon, { className: "w-4 h-4" })}
                       </div>
