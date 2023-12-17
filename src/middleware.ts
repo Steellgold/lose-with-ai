@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/lib/utils/supabase/middleware";
+import { createClient } from '@/lib/utils/supabase/middleware';
 import { env } from "./lib/env.mjs";
 
 export const middleware = async(request: NextRequest): Promise<unknown> => {
