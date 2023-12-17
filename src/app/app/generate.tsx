@@ -2,10 +2,12 @@ import { Sport, Sports } from "@/lib/utils/types/names";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem, SelectedItems, Textarea, Switch, cn } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Sparkles } from "lucide-react";
-import { ReactElement, cloneElement } from "react";
+import { ReactElement, cloneElement, useState } from "react";
 
 export const Generate = (): ReactElement => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [isReady, setIsReady] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   return <>
     <Button size="sm" onPress={onOpen}>
@@ -18,44 +20,44 @@ export const Generate = (): ReactElement => {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">New program</ModalHeader>
-              <ModalBody>
-                <Input placeholder="Program name" label="Name" variant="bordered" />
-                <Select
-                  items={Sports}
-                  placeholder="Select sports"
-                  description={"Icons are not always representative of the selected sport/program"}
-                  defaultSelectedKeys={["CYCLING"]}
-                  classNames={{
-                    trigger: "h-12",
-                  }}
-                  renderValue={(items: SelectedItems<Sport>) => {
-                    if (!items.length) return <>Nothing phone</>;
-                      return items.map((item) => (
-                        <div className="flex gap-2 items-center">
-                          <div className="flex items-center justify-center w-7 h-7 text-white bg-secondary-800 rounded-full p-1.5">
-                            {item.data?.icon && cloneElement(item.data?.icon, { className: "w-4 h-4" })}
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-small">{item.data?.name}</span>
-                            <span className="text-tiny text-default-600">{item.data?.description}</span>
-                          </div>
+            <ModalBody>
+              <Input placeholder="Program name" label="Name" variant="bordered" />
+              <Select
+                items={Sports}
+                placeholder="Select sports"
+                description={"Icons are not always representative of the selected sport/program"}
+                 defaultSelectedKeys={["CYCLING"]}
+                classNames={{
+                  trigger: "h-12",
+                }}
+                renderValue={(items: SelectedItems<Sport>) => {
+                  if (!items.length) return <>Nothing phone</>;
+                    return items.map((item) => (
+                      <div className="flex gap-2 items-center">
+                        <div className="flex items-center justify-center w-7 h-7 text-white bg-secondary-800 rounded-full p-1.5">
+                          {item.data?.icon && cloneElement(item.data?.icon, { className: "w-4 h-4" })}
                         </div>
-                      ));
-                    }
-                  }>
-                    {(item: Sport) => (
-                      <SelectItem key={item.id} value={item.id} textValue={item.name}>
-                        <div className="flex gap-2 items-center">
-                          <div className="flex items-center justify-center w-7 h-7 text-white bg-secondary-800 rounded-full p-1.5">
-                            {cloneElement(item.icon, { className: "w-4 h-4" })}
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-small">{item.name}</span>
-                            <span className="text-tiny text-default-600">{item.description}</span>
-                          </div>
+                        <div className="flex flex-col">
+                          <span className="text-small">{item.data?.name}</span>
+                          <span className="text-tiny text-default-600">{item.data?.description}</span>
                         </div>
-                      </SelectItem>
-                    )}
+                      </div>
+                    ));
+                  }
+                }>
+                  {(item: Sport) => (
+                    <SelectItem key={item.id} value={item.id} textValue={item.name}>
+                      <div className="flex gap-2 items-center">
+                        <div className="flex items-center justify-center w-7 h-7 text-white bg-secondary-800 rounded-full p-1.5">
+                          {cloneElement(item.icon, { className: "w-4 h-4" })}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-small">{item.name}</span>
+                          <span className="text-tiny text-default-600">{item.description}</span>
+                        </div>
+                      </div>
+                    </SelectItem>
+                  )}
                 </Select>
 
                 <Textarea placeholder="Program description" label="Description" variant="bordered" />

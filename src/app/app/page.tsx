@@ -1,8 +1,8 @@
 import type { ReactElement } from "react";
-import { HydrationBoundary } from "@/lib/providers";
 import { GenerationsPage } from "./page.client";
 import { auth } from "@/lib/utils/auth";
 import { getProgramsQuery } from "@/lib/actions/progs";
+import { HydrationBoundary } from "@/lib/providers";
 
 const AppHome = async(): Promise<ReactElement> => {
   const userData = await auth();
