@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "builde": "prisma:generate && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "prisma generate && node nc.js",
