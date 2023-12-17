@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export const AuthPage = () => {
+const AuthPage = () => {
   const supabase = createClient();
   const { user } = useUser();
   const router = useRouter();
