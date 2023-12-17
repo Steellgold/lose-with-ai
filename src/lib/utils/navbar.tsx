@@ -32,7 +32,6 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const { user } = useUser();
@@ -59,9 +58,7 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
       <NavbarContent justify="end">
         {!user && (
           <NavbarItem>
-            <Button as={Link} color="secondary" href="/auth" variant="flat">
-                Get started
-            </Button>
+            <Button as={Link} color="secondary" href="/auth" variant="flat">Get started</Button>
           </NavbarItem>
         )}
 
@@ -85,7 +82,7 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
                 <p className="font-semibold">{user?.email}</p>
               </DropdownItem>
 
-              <DropdownItem key="generations" endContent={<Dumbbell size={12} />}>My Generations</DropdownItem>
+              <DropdownItem key="generations" endContent={<Dumbbell size={12} />} as={Link} href="/app/generations">My Generations</DropdownItem>
               <DropdownItem key="credits" endContent={<Coins size={12} />} onClick={onOpen}>Credits</DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={() => {
                 void supabase.auth.signOut()

@@ -1,6 +1,6 @@
 // Bien sûr, voici les noms en anglais et en français pour les activités sportives et les conseils liés à la perte de poids :
-
 import type { ReactElement } from "react";
+
 import {
   IconRun, IconSwimming, IconBike, IconHelmet,
   IconYoga, IconPool, IconBarbell, IconMountain,
@@ -10,7 +10,7 @@ import {
   IconGolf
 } from "@tabler/icons-react";
 
-type SPORTS = "RUNNING" | "HIIT" | "SWIMMING" | "CYCLING" |
+export type SPORTS = "RUNNING" | "HIIT" | "SWIMMING" | "CYCLING" |
   "CIRCUIT" | "WEIGHTLIFTING" | "YOGA" | "CLIMBING" |
   "ZUMBA" | "GROUP" | "PLANKING" | "HIKING" |
   "KICKBOXING" | "AEROBICS" | "TEAM" | "JUMP" |
@@ -23,6 +23,19 @@ export type Sport = {
   name: string;
   description: string;
   icon: ReactElement;
+};
+
+export const getSportByID = (id: SPORTS): Sport => {
+  const i = Sports.find((sport: Sport) => sport.id === id);
+  if (!i) throw new Error("Sport not found");
+  return i;
+};
+
+export const getSportNarmol = (number: number): { name: string; description: string } => {
+  return {
+    name: Sports[number].name,
+    description: Sports[number].description
+  };
 };
 
 export const Sports: Sport[] = [
