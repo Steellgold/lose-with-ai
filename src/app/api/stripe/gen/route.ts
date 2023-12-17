@@ -1,11 +1,17 @@
 /* eslint-disable camelcase */
 import { env } from "@/lib/env.mjs";
 import { stripe } from "@/lib/utils/stripe";
+import { createClient } from "@/lib/utils/supabase/server";
+import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
 export const POST = async(req: NextRequest): Promise<NextResponse> => {
+  const supabase = createClient(cookies());
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const schema = z.object({
     type: z.string()
   }).safeParse(await req.json());
@@ -24,6 +30,9 @@ export const POST = async(req: NextRequest): Promise<NextResponse> => {
           quantity: 1
         }
       ],
+      metadata: {
+        userId: user.id
+      },
       allow_promotion_codes: true,
       success_url: env.NEXT_PUBLIC_APP_URL,
       cancel_url: env.NEXT_PUBLIC_APP_URL
@@ -40,6 +49,9 @@ export const POST = async(req: NextRequest): Promise<NextResponse> => {
           quantity: 1
         }
       ],
+      metadata: {
+        userId: user.id
+      },
       allow_promotion_codes: true,
       success_url: env.NEXT_PUBLIC_APP_URL,
       cancel_url: env.NEXT_PUBLIC_APP_URL
