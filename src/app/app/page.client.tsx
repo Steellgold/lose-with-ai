@@ -12,6 +12,7 @@ import { Generate } from "./generate";
 import { useGetPrograms } from "@/lib/actions/progs";
 import { PageLoadingLayout } from "./page.loading";
 import { useGetUser } from "@/lib/actions/user";
+import { ProgramsTable } from "./programs-table";
 
 type Position = "TOP" | "RIGHT" | "BOTTOM" | "LEFT";
 
@@ -106,6 +107,12 @@ export const GenerationsPage = (): ReactElement => {
             <small className="text-default-500">Muscle building</small>
           </CardHeader>
         </Card>
+      </div>
+
+      <br />
+
+      <div className="max-w-full">
+        <ProgramsTable programs={programs.data} />
       </div>
     </>
   );
