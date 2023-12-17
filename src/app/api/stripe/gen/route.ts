@@ -31,7 +31,8 @@ export const POST = async(req: NextRequest): Promise<NextResponse> => {
         }
       ],
       metadata: {
-        userId: user.id
+        userId: user.id,
+        priceId: env.STRIPE_CREDITS_10
       },
       allow_promotion_codes: true,
       success_url: env.NEXT_PUBLIC_APP_URL,
@@ -50,7 +51,8 @@ export const POST = async(req: NextRequest): Promise<NextResponse> => {
         }
       ],
       metadata: {
-        userId: user.id
+        userId: user.id,
+        priceId: env.STRIPE_CREDITS_20
       },
       allow_promotion_codes: true,
       success_url: env.NEXT_PUBLIC_APP_URL,

@@ -4,6 +4,17 @@ import { stripe } from "@/lib/utils/stripe";
 import { headers } from "next/headers";
 import type Stripe from "stripe";
 
+const getCountByPriceId = (priceId: string): number => {
+  const paymentsByID: { [key: string]: number } = {
+    "price_1OOSeKEKNcTJdINCKSEmVuKr": 10,
+    "price_1OOShTEKNcTJdINClVHnGPyW": 10,
+    "price_1OOShGEKNcTJdINCdpXpPSvY": 20,
+    "price_1OOShPEKNcTJdINCEyLO4mC2": 20
+  };
+
+  return paymentsByID[priceId];
+};
+
 export const POST = async(req: Request): Promise<Response> => {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
@@ -24,17 +35,6 @@ export const POST = async(req: Request): Promise<Response> => {
   const session = event.data.object as Stripe.Checkout.Session;
 
   if (event.type === "checkout.session.completed") {
-    // Retrieve the subscription details from Stripe.
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
-
-    const paymentsByID = {
-      "price_1OOSeKEKNcTJdINCKSEmVuKr": 10,
-      "price_1OOShTEKNcTJdINClVHnGPyW": 10,
-      "price_1OOShGEKNcTJdINCdpXpPSvY": 20,
-      "price_1OOShPEKNcTJdINCEyLO4mC2": 20
-    };
 
     await prisma.user.update({
       where: {
@@ -42,7 +42,7 @@ export const POST = async(req: Request): Promise<Response> => {
       },
       data: {
         credit: {
-          increment: paymentsByID[subscription.items.data[0].price.id as keyof typeof paymentsByID] ?? 1
+          increment: getCountByPriceId(session?.metadata?.priceId ?? "") ?? 1
         }
       }
     });
