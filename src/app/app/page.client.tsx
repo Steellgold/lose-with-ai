@@ -9,6 +9,7 @@ import { useHover } from "usehooks-ts";
 import { Generate } from "./generate";
 import { useGetPrograms } from "@/lib/actions/progs";
 import { PageLoadingLayout } from "./page.loading";
+import { useGetUser } from "@/lib/actions/user";
 
 type Position = "TOP" | "RIGHT" | "BOTTOM" | "LEFT";
 
@@ -27,15 +28,15 @@ const classWithRotate = (rotate: number, isHovered: boolean, pos: Position) => c
 export const GenerationsPage = () => {
   const { user } = useUser();
   if (!user) return <PageLoadingLayout />;
-
-  const generations = 0;
+  const userData = useGetUser(user.id);
+  if (!userData) return <PageLoadingLayout />;
 
   const sound = new Howl({ src: "/jon-meyers.mp3", volume: 10 });
   const hoverRef = useRef(null)
   const isHovered = useHover(hoverRef)
 
   const programs = useGetPrograms(user.id);
-  if (!programs) return <>Loading...</>;
+  if (!programs) return <PageLoadingLayout />;
 
   const playJonMeyers = () => {
     console.log("play");
@@ -78,15 +79,21 @@ export const GenerationsPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <Card className="py-4">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-            <p className="text-tiny uppercase font-bold">Generations</p>
-            <small className="text-default-500">You have {generations} generations.</small>
+            <div className="flex flex-row items-center justify-between w-full">
+              <div>
+                <p className="text-tiny uppercase font-bold">Generations</p>
+                <small className="text-default-500">You have {programs.data?.length ?? 0} generations.</small>
+              </div>
+
+              <Generate />
+            </div>
           </CardHeader>
         </Card>
 
         <Card className="py-4">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
             <p className="text-tiny uppercase font-bold">Credits</p>
-            <small className="text-default-500">You have 0 credits.</small>
+            <small className="text-default-500">You have {userData?.data?.credit ?? 0} credits.</small>
           </CardHeader>
         </Card>
 
@@ -97,10 +104,6 @@ export const GenerationsPage = () => {
           </CardHeader>
         </Card>
       </div>
-
-      <br />
-
-      <Generate />
     </>
   );
 };
