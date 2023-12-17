@@ -13,6 +13,9 @@ import { useGetPrograms } from "@/lib/actions/progs";
 import { PageLoadingLayout } from "./page.loading";
 import { useGetUser } from "@/lib/actions/user";
 import { ProgramsTable } from "./programs-table";
+import type { Program } from "@prisma/client";
+import type { SPORTS } from "@/lib/utils/types/names";
+import { getSportByID } from "@/lib/utils/types/names";
 
 type Position = "TOP" | "RIGHT" | "BOTTOM" | "LEFT";
 
@@ -27,6 +30,23 @@ const classWithRotate = (rotate: number, isHovered: boolean, pos: Position): str
   "top-0 left-0": pos === "LEFT",
   "bottom-0 left-0": pos === "BOTTOM"
 });
+
+const getMostUsedSport = (programs: Program[]): string => {
+  if (!programs) return "None";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sports = programs.map((program) => program.type).reduce((acc: any, curr: any) => {
+    if (typeof acc[curr] === "undefined") {
+      acc[curr] = 1;
+    } else {
+      acc[curr] += 1;
+    }
+    return acc;
+  }, {});
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const max = Object.keys(sports).reduce((a, b) => sports[a] > sports[b] ? a : b);
+  return max;
+};
 
 export const GenerationsPage = (): ReactElement => {
   const { user } = useUser();
@@ -104,7 +124,11 @@ export const GenerationsPage = (): ReactElement => {
         <Card className="py-4">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
             <p className="text-tiny uppercase font-bold">Your preffered sport</p>
-            <small className="text-default-500">Muscle building</small>
+            <small className="text-default-500">
+              {userData.data?.programs.length ?? 0 > 0
+                ? getSportByID(getMostUsedSport(userData.data?.programs as Program[]) as SPORTS).name
+                : "No programs yet"}
+            </small>
           </CardHeader>
         </Card>
       </div>
@@ -112,6 +136,8 @@ export const GenerationsPage = (): ReactElement => {
       <br />
 
       <div className="max-w-full">
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-expect-error */}
         <ProgramsTable programs={programs.data} />
       </div>
     </>

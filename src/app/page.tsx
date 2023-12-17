@@ -40,7 +40,7 @@ const HeroSection = (): ReactElement => {
       </div>
 
       <p className="text-center text-gray-950/60 text-sm mt-2">
-        This is a sample example input, access to the <Link className="text-sm underline" href="/auth">app</Link> for a better experience
+        This is a sample example input, access to the <Link className="text-sm underline" href="/app">app</Link> for more.
       </p>
     </div>
   </>;

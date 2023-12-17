@@ -5,8 +5,7 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, 
 import type { SPORTS } from "@/lib/utils/types/names";
 import { type Sport, getSportByID } from "@/lib/utils/types/names";
 import type { Component } from "@/lib/utils/component";
-import { DeleteIcon } from "./icons/delete";
-import { EyeIcon } from "./icons/eye";
+import Link from "next/link";
 
 type Data = {
   id: string;
@@ -26,8 +25,7 @@ export const ProgramsTable: Component<{ programs: Data }> = ({ programs }) => {
     { name: "Name", uid: "name" },
     { name: "Description", uid: "description" },
     { name: "Public", uid: "isPublic" },
-    { name: "Type", uid: "type" },
-    { name: "Actions", uid: "actions" }
+    { name: "Type", uid: "type" }
   ];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,21 +43,6 @@ export const ProgramsTable: Component<{ programs: Data }> = ({ programs }) => {
         return <Tooltip
           content={getSportByID(cellValue as SPORTS).name}
           closeDelay={10} delay={10}>{getSportByID(cellValue as SPORTS).icon}</Tooltip>;
-      case "actions":
-        return (
-          <div className="flex gap-2 justify-center">
-            <Tooltip content="View" color="primary" closeDelay={10} delay={10}>
-              <span className="text-lg text-default-500 cursor-pointer active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip content="Delete" color="danger" closeDelay={10} delay={10}>
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
-        );
       default:
         return cellValue;
     }
@@ -77,7 +60,9 @@ export const ProgramsTable: Component<{ programs: Data }> = ({ programs }) => {
       <TableBody items={programs}>
         {(item) => (
           <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            {(columnKey) => <TableCell>
+              <Link href={`/app/programs/${item.id}`} key={item.id}>{renderCell(item, columnKey)}</Link>
+            </TableCell>}
           </TableRow>
         )}
       </TableBody>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link as NLink, Button, NavbarMenuToggle,
-  NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem, useDisclosure } from "@nextui-org/react";
+  NavbarMenu, NavbarMenuItem, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem, useDisclosure, Chip } from "@nextui-org/react";
 import Link from "next/link";
 import type { ReactElement } from "react";
 import { IconPlayFootball, IconPlayBasketball, IconPlayVolleyball, IconSkateboarding, IconYoga, IconWaterpolo, IconWalk,
@@ -51,7 +51,13 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
         <NavbarBrand>
           <Link href="/" className="flex items-center gap-2">
             <span ref={hoverRef}>{isHover ? random() : random()}</span>
-            Lose
+              Lose
+            <Chip variant="shadow"
+              classNames={{
+                base: "bg-gradient-to-br from-violet-500 to-violet-600 border-small border-white/50 shadow-pink-500/30",
+                content: "drop-shadow shadow-black text-white text-sm"
+              }}
+            >Beta</Chip>
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -82,7 +88,7 @@ export const SuperMegaCooooolNavbar = (): ReactElement => {
                 <p className="font-semibold">{user?.email}</p>
               </DropdownItem>
 
-              <DropdownItem key="generations" endContent={<Dumbbell size={12} />} as={Link} href="/app/generations">My Generations</DropdownItem>
+              <DropdownItem key="generations" endContent={<Dumbbell size={12} />} as={Link} href="/app">My Generations</DropdownItem>
               <DropdownItem key="credits" endContent={<Coins size={12} />} onClick={onOpen}>Credits</DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={() => {
                 void supabase.auth.signOut()

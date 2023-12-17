@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getSportNarmol } from "@/lib/utils/types/names";
 import { openai } from "@/lib/utils/openai";
 import type { ChatCompletionRequestMessage } from "openai-edge";
+import { prisma } from "@/lib/utils/db/prisma";
 
 const SP = "https://gist.githubusercontent.com/Steellgold/db3b69bf9e29762b216f9b5db7a8ea4e/raw/42fa4c6ebc0109578b3e61295413a99d69315467/system";
 const UP = "https://gist.githubusercontent.com/Steellgold/db3b69bf9e29762b216f9b5db7a8ea4e/raw/42fa4c6ebc0109578b3e61295413a99d69315467/user";
@@ -50,10 +51,10 @@ export const POST = async(request: NextRequest): Promise<NextResponse | Streamin
     { role: "user", content: userFinalPrompt }
   ];
 
-  // await prisma.user.update({
-  //   data: { credits: { decrement: 1 } },
-  //   where: { id: user.id }
-  // });
+  await prisma.user.update({
+    data: { credit: { decrement: 1 } },
+    where: { id: user.id }
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const res = await openai.createChatCompletion({

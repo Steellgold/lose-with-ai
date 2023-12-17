@@ -17,6 +17,10 @@ export const useGetPrograms = (userId: string) => {
   return useQuery(getProgramsQuery(userId));
 };
 
+export const useGetProgram = (progId: string) => {
+  return useQuery(getProgramQuery(progId));
+};
+
 // Mutations
 export const createProgramMutation = () => {
   const queryClient = useQueryClient();

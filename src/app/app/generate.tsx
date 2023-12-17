@@ -33,7 +33,7 @@ export const Generate = (): ReactElement => {
   const [language, setLanguage] = useState<"us" | "fr">("us");
   const [sport, setSport] = useState<number>(0);
 
-  const [result, setResult] = useState("");
+  const [_, setResult] = useState("");
 
   return <>
     <Button size="sm" onPress={onOpen}>
