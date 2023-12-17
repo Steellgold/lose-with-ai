@@ -34,7 +34,7 @@ const HeroSection = (): ReactElement => {
           className="w-full max-w-[500px]"
         />
 
-        <Button color="secondary" variant="solid" className="ml-2" isIconOnly>
+        <Button color="secondary" variant="solid" className="ml-2" isIconOnly as={Link} href="/app">
           <Sparkles size={18} />
         </Button>
       </div>
