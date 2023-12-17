@@ -46,7 +46,7 @@ const HeroSection = (): ReactElement => {
   </>;
 };
 
-export const Home = (): ReactElement => {
+const Home = (): ReactElement => {
   return <>
     <HeroSection />
   </>;
